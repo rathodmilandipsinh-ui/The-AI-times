@@ -1,5 +1,27 @@
-<header>
-    <nav>
-        This Is Navbar
-    </nav>
+<header class="navbar">
+    <div class="navbar__container">
+
+        <a href="{{ url_for('home') }}" class="navbar__brand">
+            <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="The AI Times logo" class="navbar__logo">
+            <span class="navbar__title">The AI Times</span>
+        </a>
+
+        <nav class="navbar__nav" id="navbar-nav">
+            <ul class="navbar__links">
+                <li><a href="{{ url_for('home') }}" class="navbar__link">Home</a></li>
+                <!-- Future routes: wire up once features are implemented -->
+                <li><a href="#" class="navbar__link">Categories</a></li>
+                <li><a href="#" class="navbar__link">Search</a></li>
+                <li><a href="#" class="navbar__link">About</a></li>
+                
+            </ul>
+        </nav>
+
+        <button type="button" class="navbar__toggle" id="navbar-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navbar-nav">
+            <span class="navbar__toggle-bar"></span>
+            <span class="navbar__toggle-bar"></span>
+            <span class="navbar__toggle-bar"></span>
+        </button>
+
+    </div>
 </header>
