@@ -1,0 +1,141 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/login.css' ) }}">
+<section class="login-section">
+
+    <div class="login-container">
+
+        <div class="login-left">
+
+            <div class="brand">
+
+                <h1>The AI Times</h1>
+
+                <p>
+                    Stay informed with personalized AI news, breaking updates,
+                    research papers, startup stories, and the latest innovations
+                    from the world of Artificial Intelligence.
+                </p>
+
+            </div>
+
+            <div class="features">
+
+                <div class="feature">
+                    <i class="bi bi-newspaper"></i>
+                    <span>Personalized News Feed</span>
+                </div>
+
+                <div class="feature">
+                    <i class="bi bi-lightning-charge"></i>
+                    <span>Breaking AI Updates</span>
+                </div>
+
+                <div class="feature">
+                    <i class="bi bi-cpu"></i>
+                    <span>Research & AI Tools</span>
+                </div>
+
+                <div class="feature">
+                    <i class="bi bi-bookmark-star"></i>
+                    <span>Save Articles for Later</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="login-right">
+
+            <form action="" method="POST">
+
+                <h2>Welcome Back</h2>
+
+                <p class="subtitle">
+                    Sign in to continue reading personalized AI news.
+                </p>
+
+                <div class="form-group">
+
+                    <label>Email Address</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required>
+
+                </div>
+
+                <div class="login-options">
+
+                    <label>
+
+                        <input type="checkbox" name="remember">
+
+                        Remember me
+
+                    </label>
+
+                    <a href="">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+                <button class="login-btn">
+                    Sign In
+                </button>
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <button
+                    type="button"
+                    class="google-btn">
+
+                    <img
+                        src="https://www.svgrepo.com/show/475656/google-color.svg"
+                        width="20">
+
+                    Continue with Google
+
+                </button>
+
+                <p class="signup-link">
+
+                    Don't have an account?
+
+                    <a href="{{ url_for('account.signup') }}">
+                        Create Account
+                    </a>
+
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends "base/base.html" %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/signup.css' ) }}">
+<section class="signup-section">
+    <div class="signup-container">
+
+        <!-- Left Side -->
+        <div class="signup-left">
+
+            <div class="brand">
+                <h1>The AI Times</h1>
+                <p>
+                    Create an account and get personalized AI news,
+                    daily summaries, startup updates, and the latest
+                    breakthroughs from the AI industry.
+                </p>
+            </div>
+
+            <div class="features">
+
+                <div class="feature">
+                    <i class="bi bi-stars"></i>
+                    <span>Personalized AI News Feed</span>
+                </div>
+
+                <div class="feature">
+                    <i class="bi bi-lightning-charge"></i>
+                    <span>Breaking AI Updates</span>
+                </div>
+
+                <div class="feature">
+                    <i class="bi bi-newspaper"></i>
+                    <span>Daily News Summary</span>
+                </div>
+
+                <div class="feature">
+                    <i class="bi bi-cpu"></i>
+                    <span>Research & Startup Coverage</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="signup-right">
+
+            <form method="POST" action="">
+
+                <h2>Create Account</h2>
+
+                <p class="subtitle">
+                    Join thousands of AI enthusiasts.
+                </p>
+
+                <div class="form-group">
+                    <label>Full Name</label>
+
+                    <input type="text" name="name" placeholder="John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+
+                    <input type="email" name="email" placeholder="example@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+
+                    <input type="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+
+                    <input type="password" name="confirm_password" placeholder="••••••••" required>
+                </div>
+
+                <label class="interest-title">
+                    Choose your interests
+                </label>
+
+                <div class="interest-grid">
+
+                    <label><input type="checkbox" name="interest" value="OpenAI"> OpenAI</label>
+
+                    <label><input type="checkbox" name="interest" value="Google Gemini"> Gemini</label>
+
+                    <label><input type="checkbox" name="interest" value="Claude"> Claude</label>
+
+                    <label><input type="checkbox" name="interest" value="AI Coding"> AI Coding</label>
+
+                    <label><input type="checkbox" name="interest" value="Robotics"> Robotics</label>
+
+                    <label><input type="checkbox" name="interest" value="Startups"> Startups</label>
+
+                    <label><input type="checkbox" name="interest" value="Research"> Research</label>
+
+                    <label><input type="checkbox" name="interest" value="Cybersecurity"> Cybersecurity</label>
+
+                </div>
+
+                <label class="checkbox">
+
+                    <input type="checkbox" required>
+
+                    I agree to the
+                    <a href="{{ url_for('terms') }}">Terms</a>
+                    &
+                    <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+
+                </label>
+
+                <button class="signup-btn">
+                    Create Account
+                </button>
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <button type="button" class="google-btn">
+
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20">
+
+                    Continue with Google
+
+                </button>
+
+                <p class="login-link">
+
+                    Already have an account?
+
+                    <a href="{{ url_for('account.login' ) }}">
+                        Sign In
+                    </a>
+
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

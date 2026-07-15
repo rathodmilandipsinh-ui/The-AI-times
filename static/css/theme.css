@@ -1,0 +1,215 @@
+/* ==========================
+   LIGHT THEME (Default)
+========================== */
+
+:root{
+
+    --bg:#f8fafc;
+    --surface:#ffffff;
+    --surface-hover:#f1f5f9;
+
+    --text:#111827;
+    --text-secondary:#6b7280;
+
+    --primary:#2563eb;
+    --primary-hover:#1d4ed8;
+
+    --border:#e5e7eb;
+
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+
+    --navbar:#000000;
+    --navbar-text:#ffffff;
+
+    --success:#22c55e;
+    --danger:#ef4444;
+}
+
+/* ==========================
+   DARK THEME
+========================== */
+
+[data-theme="dark"]{
+
+    --bg:#0f172a;
+    --surface:#1e293b;
+    --surface-hover:#334155;
+
+    --text:#f8fafc;
+    --text-secondary:#94a3b8;
+
+    --primary:#3b82f6;
+    --primary-hover:#2563eb;
+
+    --border:#334155;
+
+    --shadow:0 12px 35px rgba(0,0,0,.45);
+
+    --navbar:#000000;
+    --navbar-text:#ffffff;
+
+    --success:#22c55e;
+    --danger:#ef4444;
+}
+
+/* ==========================
+   GLOBAL
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    transition:.3s ease;
+    font-family:Inter,sans-serif;
+}
+
+/* ==========================
+   NAVBAR
+========================== */
+
+.navbar{
+
+    background:var(--navbar);
+
+    color:var(--navbar-text);
+
+    box-shadow:var(--shadow);
+
+}
+
+.navbar a{
+
+    color:var(--navbar-text);
+
+    text-decoration:none;
+
+}
+
+/* ==========================
+   CARD
+========================== */
+
+.card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    box-shadow:var(--shadow);
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    background:var(--surface-hover);
+
+}
+
+/* ==========================
+   BUTTON
+========================== */
+
+.btn-primary{
+
+    background:var(--primary);
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+.btn-primary:hover{
+
+    background:var(--primary-hover);
+
+}
+
+/* ==========================
+   INPUT
+========================== */
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    padding:14px;
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    outline:none;
+
+    border-color:var(--primary);
+
+}
+
+/* ==========================
+   LINKS
+========================== */
+
+a{
+
+    color:var(--primary);
+
+}
+
+a:hover{
+
+    color:var(--primary-hover);
+
+}
+
+/* ==========================
+   HEADINGS
+========================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+
+    color:var(--text);
+
+}
+
+p{
+
+    color:var(--text-secondary);
+
+}

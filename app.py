@@ -3,6 +3,7 @@ import os
 
 from config import Config
 from extensions import db
+from routes.account import account
 
 
 app = Flask(__name__)
@@ -15,6 +16,16 @@ db.init_app(app)
 @app.route("/")
 def home():
     return render_template("home.html")
+
+@app.route("/terms")
+def terms():
+    return render_template("terms.html")
+
+@app.route("/privacy")
+def privacy():
+    return render_template("privacy.html")
+
+app.register_blueprint(account)
 
 if __name__ == "__main__":
     with app.app_context():

@@ -1,0 +1,96 @@
+{% extends "base/base.html" %}
+
+{% block title %}Privacy Policy{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/legal.css' ) }}">
+<div class="container py-5">
+
+    <div class="mx-auto" style="max-width:900px;">
+
+        <h1 class="mb-4">Privacy Policy</h1>
+
+        <p class="text-muted">
+            Last Updated: July 2026
+        </p>
+
+        <hr>
+
+        <h3>1. Information We Collect</h3>
+
+        <ul>
+            <li>Name</li>
+            <li>Email Address</li>
+            <li>Encrypted Password</li>
+            <li>News Preferences</li>
+            <li>Usage Statistics</li>
+        </ul>
+
+        <h3>2. How We Use Your Information</h3>
+
+        <ul>
+            <li>Create and manage your account.</li>
+            <li>Personalize your AI news feed.</li>
+            <li>Improve website performance.</li>
+            <li>Send account-related notifications.</li>
+        </ul>
+
+        <h3>3. Cookies</h3>
+
+        <p>
+            We may use cookies or similar technologies to remember your
+            preferences, keep you signed in, and improve your browsing
+            experience.
+        </p>
+
+        <h3>4. Third-Party Services</h3>
+
+        <p>
+            We may integrate trusted third-party services such as authentication
+            providers, analytics tools, and advertising platforms. These
+            services have their own privacy policies.
+        </p>
+
+        <h3>5. Data Security</h3>
+
+        <p>
+            We use reasonable security measures to protect your information.
+            Passwords are stored as secure hashes and are never stored in plain
+            text.
+        </p>
+
+        <h3>6. Sharing of Information</h3>
+
+        <p>
+            We do not sell your personal information. We may share limited
+            information only when required by law or to provide essential
+            website functionality.
+        </p>
+
+        <h3>7. Your Rights</h3>
+
+        <ul>
+            <li>Update your profile information.</li>
+            <li>Change your news preferences.</li>
+            <li>Request deletion of your account.</li>
+        </ul>
+
+        <h3>8. Changes to This Policy</h3>
+
+        <p>
+            We may update this Privacy Policy periodically. The latest version
+            will always be available on this page.
+        </p>
+
+        <h3>9. Contact</h3>
+
+        <p>
+            If you have questions about this Privacy Policy, please contact us
+            through the Contact page.
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

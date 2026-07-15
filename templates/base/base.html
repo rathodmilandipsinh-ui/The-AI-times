@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My App{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static',filename='css/theme.css' ) }}"> -->
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -12,7 +13,7 @@
     {% block content %}
         
     {% endblock %}
-     <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+     <script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

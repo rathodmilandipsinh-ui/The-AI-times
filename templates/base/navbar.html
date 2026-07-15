@@ -2,7 +2,7 @@
     <div class="navbar__container">
 
         <a href="{{ url_for('home') }}" class="navbar__brand">
-            <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="The AI Times logo" class="navbar__logo">
+            <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="The AI Times logo" class="navbar__logo">
             <span class="navbar__title">The AI Times</span>
         </a>
 
@@ -12,7 +12,8 @@
                 <!-- Future routes: wire up once features are implemented -->
                 <li><a href="#" class="navbar__link">Categories</a></li>
                 <li><a href="#" class="navbar__link">Search</a></li>
-                <li><a href="#" class="navbar__link">login</a></li>
+                <li><a href="/account/signup" class="navbar__link">Create Account</a></li>
+                <li><a href="/account/login" class="navbar__link">Login</a></li>
                 <li><a href="#" class="navbar__link">About</a></li>
 
 
