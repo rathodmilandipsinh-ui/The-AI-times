@@ -1,0 +1,78 @@
+/* ===========================
+   FLASH ALERT
+=========================== */
+
+.flash-container{
+    position:fixed;
+    top:90px;
+    right:20px;
+    z-index:9999;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.flash{
+    min-width:320px;
+    max-width:420px;
+    padding:15px 18px;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#fff;
+    box-shadow:0 12px 30px rgba(0,0,0,.15);
+    animation:slideIn .35s ease;
+}
+
+.flash-success{
+    background:#16a34a;
+}
+
+.flash-error{
+    background:#dc2626;
+}
+
+.flash-warning{
+    background:#d97706;
+}
+
+.flash-info{
+    background:#2563eb;
+}
+
+.flash-close{
+    border:none;
+    background:none;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+    margin-left:15px;
+}
+
+@keyframes slideIn{
+
+    from{
+        transform:translateX(100%);
+        opacity:0;
+    }
+
+    to{
+        transform:translateX(0);
+        opacity:1;
+    }
+
+}
+
+@media(max-width:576px){
+
+    .flash-container{
+        left:15px;
+        right:15px;
+    }
+
+    .flash{
+        min-width:100%;
+    }
+
+}

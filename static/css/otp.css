@@ -1,0 +1,205 @@
+/* ===========================
+   THEME
+=========================== */
+
+:root{
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --text:#111827;
+    --text-light:#6b7280;
+    --primary:#2563eb;
+    --primary-hover:#1d4ed8;
+    --border:#e5e7eb;
+    --shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+[data-theme="dark"]{
+    --bg:#0f172a;
+    --card:#1e293b;
+    --text:#f8fafc;
+    --text-light:#94a3b8;
+    --primary:#3b82f6;
+    --primary-hover:#2563eb;
+    --border:#334155;
+    --shadow:0 15px 40px rgba(0,0,0,.45);
+}
+
+/* ===========================
+   OTP SECTION
+=========================== */
+
+.otp-section{
+    min-height:100vh;
+    background:var(--bg);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+/* ===========================
+   CARD
+=========================== */
+
+.otp-card{
+    width:100%;
+    max-width:500px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    padding:45px;
+    text-align:center;
+}
+
+/* ===========================
+   ICON
+=========================== */
+
+.otp-icon{
+    width:80px;
+    height:80px;
+    margin:0 auto 25px;
+    border-radius:50%;
+    background:rgba(37,99,235,.1);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.otp-icon i{
+    font-size:34px;
+    color:var(--primary);
+}
+
+/* ===========================
+   TEXT
+=========================== */
+
+.otp-card h1{
+    color:var(--text);
+    margin-bottom:10px;
+    font-size:2rem;
+}
+
+.subtitle{
+    color:var(--text-light);
+    margin-bottom:6px;
+}
+
+.email{
+    color:var(--primary);
+    font-weight:600;
+    margin-bottom:35px;
+    word-break:break-all;
+}
+
+/* ===========================
+   OTP INPUTS
+=========================== */
+
+.otp-inputs{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:30px;
+}
+
+.otp-box{
+    width:55px;
+    height:60px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--card);
+    color:var(--text);
+    text-align:center;
+    font-size:22px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.otp-box:focus{
+    outline:none;
+    border-color:var(--primary);
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
+
+/* ===========================
+   BUTTON
+=========================== */
+
+.verify-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:var(--primary);
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.verify-btn:hover{
+    background:var(--primary-hover);
+}
+
+/* ===========================
+   LINKS
+=========================== */
+
+.resend{
+    margin-top:25px;
+    color:var(--text-light);
+}
+
+.resend a{
+    color:var(--primary);
+    text-decoration:none;
+    font-weight:600;
+}
+
+.resend a:hover{
+    text-decoration:underline;
+}
+
+.back-link{
+    margin-top:18px;
+}
+
+.back-link a{
+    color:var(--text-light);
+    text-decoration:none;
+    transition:.3s;
+}
+
+.back-link a:hover{
+    color:var(--primary);
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:576px){
+
+    .otp-card{
+        padding:30px 20px;
+    }
+
+    .otp-inputs{
+        gap:8px;
+    }
+
+    .otp-box{
+        width:45px;
+        height:50px;
+        font-size:18px;
+    }
+
+    .otp-card h1{
+        font-size:1.6rem;
+    }
+
+}

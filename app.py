@@ -2,8 +2,8 @@ from flask import Flask,render_template
 import os 
 
 from config import Config
-from extensions import db
-from routes.account import account
+from database import db
+from routes.auth import auth
 
 
 app = Flask(__name__)
@@ -25,7 +25,7 @@ def terms():
 def privacy():
     return render_template("privacy.html")
 
-app.register_blueprint(account)
+app.register_blueprint(auth)
 
 if __name__ == "__main__":
     with app.app_context():
