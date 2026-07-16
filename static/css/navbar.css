@@ -25,7 +25,7 @@
 }
 
 .navbar__container {
-    max-width: 1200px;
+    max-width: 1600px;
     height: var(--navbar-height);
     margin: 0 auto;
     padding: 0 20px;
