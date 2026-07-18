@@ -12,9 +12,14 @@
                 <!-- Future routes: wire up once features are implemented -->
                 <li><a href="#" class="navbar__link">Categories</a></li>
                 <li><a href="#" class="navbar__link">Search</a></li>
-                <li><a href="/account/login" class="navbar__link">Login</a></li>
-                <li><a href="/account/signup" class="navbar__link">Create Account</a></li>
+                {% if not "user_id" in session %}
+                <li><a href="/auth/login" class="navbar__link">Login</a></li>
+                <li><a href="/auth/signup" class="navbar__link">Create Account</a></li> 
+                {% endif %}
                 <li><a href="#" class="navbar__link">About</a></li>
+                {% if "user_id" in session %}
+                <li><a href="/auth/logout" class="navbar__link">Logout</a></li>
+                {% endif %}
 
 
             </ul>

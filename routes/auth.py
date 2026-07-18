@@ -8,6 +8,8 @@ from werkzeug.security import generate_password_hash
 
 from database import db
 from models.user import User
+from services.auth_service import (
+    login_user,logout_user)
 
 
 
@@ -43,6 +45,21 @@ def signup():
         return redirect(url_for("home"))
     return render_template("auth/signup.html")
 
-@auth.route("/auth/login")
+@auth.route("/auth/login",methods=["GET","POST"])
 def login():
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+        response,msg =  login_user(email,password)
+        if not response:
+            flash(msg,"error")
+            return redirect(url_for("auth.login"))
+        flash(msg,"success")
+        return redirect(url_for("home"))
     return render_template("auth/login.html")
+
+
+@auth.route("/auth/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("auth.login"))

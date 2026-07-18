@@ -80,6 +80,10 @@
     text-shadow: 0px 0px 15px white;
     transform: translateY(10);
 }
+.logout_btn {
+    background: none;
+    border: none;
+}
 
 /* Mobile toggle button (hidden on desktop) */
 .navbar__toggle {
