@@ -9,7 +9,8 @@ from werkzeug.security import generate_password_hash
 from database import db
 from models.user import User
 from services.auth_service import (
-    login_user,logout_user)
+    login_user,logout_user,
+    forgot_password)
 
 
 
@@ -58,6 +59,22 @@ def login():
         return redirect(url_for("home"))
     return render_template("auth/login.html")
 
+@auth.route("/auth/forgot-password",methods=["GET","POST"])
+def forgot_password_route():
+    if request.method == "POST":
+        email = request.form.get("email")
+        response,msg = forgot_password(email)
+        if not response:
+            flash(msg,"error")
+            return redirect(url_for("auth.forgot_password_route"))
+        flash(msg,"success")
+        return redirect(url_for("auth.otp_verification"))
+    return render_template("auth/forgot-password.html")
+
+
+@auth.route("/otp-verification", methods=["GET", "POST"])
+def otp_verification():
+    return render_template("auth/otp-verification.html")
 
 @auth.route("/auth/logout")
 def logout():

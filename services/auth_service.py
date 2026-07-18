@@ -65,15 +65,12 @@ def forgot_password(email):
     
     otp = generate_otp() 
     session["reset_email"] = email 
+    session["otp"] = otp
 
     if not send_otp_email(email, otp): 
         return False, "Unable to send OTP email."
     
     return True, "Verification code sent successfully."
-
-from models.user import User
-from services.password_service import hash_password
-from flask import session
 
 def reset_password(new_password):
 

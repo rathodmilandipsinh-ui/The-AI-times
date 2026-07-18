@@ -23,24 +23,24 @@ Verify Email
         </p>
 
         <p class="email">
-            {{ session.get('email') }}
+            {{ session.get('reset_email') }}
         </p>
 
         <form action="" method="POST">
 
             <div class="otp-inputs">
 
-                <input type="text" maxlength="1" class="otp-box" required>
+                <input type="text" maxlength="1" class="otp-box" name="otp1" required>
 
-                <input type="text" maxlength="1" class="otp-box" required>
+                <input type="text" maxlength="1" class="otp-box" name="otp2" required>
 
-                <input type="text" maxlength="1" class="otp-box" required>
+                <input type="text" maxlength="1" class="otp-box" name="otp3" required>
 
-                <input type="text" maxlength="1" class="otp-box" required>
+                <input type="text" maxlength="1" class="otp-box" name="otp4" required>
 
-                <input type="text" maxlength="1" class="otp-box" required>
+                <input type="text" maxlength="1" class="otp-box" name="otp5" required>
 
-                <input type="text" maxlength="1" class="otp-box" required>
+                <input type="text" maxlength="1" class="otp-box" name="otp6" required>
 
             </div>
 
@@ -57,7 +57,7 @@ Verify Email
 
             Didn't receive the code?
 
-            <a href="{{ url_for('auth.resend_otp') }}">
+            <a href="">
                 Resend OTP
             </a>
 

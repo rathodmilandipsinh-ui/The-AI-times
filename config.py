@@ -13,3 +13,5 @@ class Config:
 
     SQLALCHEMY_DATABASE_URI = os.environ.get("DB_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    MAIL_EMAIL = os.environ.get("MAIL_EMAIL")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
