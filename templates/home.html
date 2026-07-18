@@ -4,6 +4,172 @@
     Home
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
 {% block content %}
-    <h4>Home</h4>
+
+<section class="hero">
+  <!-- soft ambient background blobs -->
+  <div class="hero-bg" aria-hidden="true">
+    <span class="hero-blob hero-blob-a"></span>
+    <span class="hero-blob hero-blob-b"></span>
+    <span class="hero-grid"></span>
+  </div>
+
+  <div class="hero-container">
+    <div class="hero-content">
+
+      <!-- LEFT: text -->
+      <div class="hero-text">
+        <span class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Daily AI Intelligence
+        </span>
+
+        <h1 class="hero-heading">
+          Stay ahead with the future
+          <span class="hero-heading-accent">of artificial intelligence</span>
+        </h1>
+
+        <p class="hero-paragraph">
+          Read trusted AI news, research breakthroughs, product launches,
+          and technology updates from around the world — curated daily,
+          explained clearly.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#news" class="hero-btn hero-btn-primary">
+            Explore News
+            <svg class="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#trends" class="hero-btn hero-btn-secondary">Top Headlines</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: illustration + floating live-style cards -->
+      <div class="hero-visual">
+        <div class="hero-visual-stage">
+
+          <!-- signature element: neural constellation orb -->
+          <svg class="hero-orb" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <radialGradient id="orbGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="nodeLine" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4F46E5"/>
+                <stop offset="100%" stop-color="#06B6D4"/>
+              </linearGradient>
+            </defs>
+
+            <circle cx="200" cy="200" r="190" fill="url(#orbGlow)"/>
+
+            <g stroke="url(#nodeLine)" stroke-width="1.2" stroke-opacity="0.55">
+              <line x1="200" y1="200" x2="120" y2="120"/>
+              <line x1="200" y1="200" x2="280" y2="130"/>
+              <line x1="200" y1="200" x2="300" y2="230"/>
+              <line x1="200" y1="200" x2="240" y2="300"/>
+              <line x1="200" y1="200" x2="130" y2="270"/>
+              <line x1="120" y1="120" x2="280" y2="130"/>
+              <line x1="300" y1="230" x2="240" y2="300"/>
+              <line x1="130" y1="270" x2="120" y2="120"/>
+            </g>
+
+            <g class="hero-orb-nodes">
+              <circle cx="200" cy="200" r="10" fill="#4F46E5"/>
+              <circle cx="120" cy="120" r="6" fill="#8B5CF6"/>
+              <circle cx="280" cy="130" r="5" fill="#06B6D4"/>
+              <circle cx="300" cy="230" r="7" fill="#8B5CF6"/>
+              <circle cx="240" cy="300" r="5" fill="#4F46E5"/>
+              <circle cx="130" cy="270" r="6" fill="#06B6D4"/>
+            </g>
+          </svg>
+
+          <!-- floating card 1 -->
+          <div class="hero-float-card hero-float-card-1">
+            <span class="hero-float-emoji">🤖</span>
+            <div>
+              <p class="hero-float-title">Breaking AI</p>
+              <p class="hero-float-meta">OpenAI · 2h ago</p>
+            </div>
+          </div>
+
+          <!-- floating card 2 -->
+          <div class="hero-float-card hero-float-card-2">
+            <span class="hero-float-emoji">🧠</span>
+            <div>
+              <p class="hero-float-title">New Research</p>
+              <p class="hero-float-meta">Nature · 5h ago</p>
+            </div>
+          </div>
+
+          <!-- floating card 3 -->
+          <div class="hero-float-card hero-float-card-3">
+            <span class="hero-float-emoji">🚀</span>
+            <div>
+              <p class="hero-float-title">New AI Startup</p>
+              <p class="hero-float-meta">TechCrunch · Today</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SEARCH & CATEGORIES
+     ============================================================ -->
+<section class="search-section">
+  <div class="search-container">
+
+    <header class="search-header">
+      <h2 class="search-heading">Find the AI news that matters</h2>
+      <p class="search-subtext">
+        Stay updated with breakthroughs, tools, research, and startup news.
+      </p>
+    </header>
+
+    <!-- action left empty on purpose; will point to /search once backend is ready -->
+    <form class="search-box" role="search" action="" method="get">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M12.5 12.5L16 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <input
+        type="text"
+        name="q"
+        class="search-input"
+        placeholder="Search AI news..."
+        aria-label="Search AI news"
+      >
+      <button type="submit" class="search-btn">Search</button>
+    </form>
+
+    
+    <nav class="category-nav" aria-label="News categories">
+      <ul class="category-list">
+        <li><button type="button" class="category-chip category-chip-active" data-category="all">All</button></li>
+        <li><button type="button" class="category-chip" data-category="openai">OpenAI</button></li>
+        <li><button type="button" class="category-chip" data-category="google">Google</button></li>
+        <li><button type="button" class="category-chip" data-category="microsoft">Microsoft</button></li>
+        <li><button type="button" class="category-chip" data-category="anthropic">Anthropic</button></li>
+        <li><button type="button" class="category-chip" data-category="meta">Meta</button></li>
+        <li><button type="button" class="category-chip" data-category="robotics">Robotics</button></li>
+        <li><button type="button" class="category-chip" data-category="research">Research</button></li>
+        <li><button type="button" class="category-chip" data-category="startups">Startups</button></li>
+        <li><button type="button" class="category-chip" data-category="ai-tools">AI Tools</button></li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
 {% endblock %}
