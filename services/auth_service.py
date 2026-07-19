@@ -64,6 +64,7 @@ def forgot_password(email):
         return False, "No account found with this email." 
     
     otp = generate_otp() 
+    session["purpose"] = "reset-password"
     session["reset_email"] = email 
     session["otp"] = otp
 

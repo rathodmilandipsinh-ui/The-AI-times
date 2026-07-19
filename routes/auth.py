@@ -9,8 +9,11 @@ from werkzeug.security import generate_password_hash
 from database import db
 from models.user import User
 from services.auth_service import (
-    login_user,logout_user,
-    forgot_password)
+    login_user,
+    logout_user,
+    forgot_password,
+    reset_password)
+from services.otp_service import (verify_otp,get_otp_from_form)
 
 
 
@@ -72,9 +75,28 @@ def forgot_password_route():
     return render_template("auth/forgot-password.html")
 
 
-@auth.route("/otp-verification", methods=["GET", "POST"])
+@auth.route("/auth/otp-verification", methods=["GET", "POST"])
 def otp_verification():
+    if request.method == "POST":
+        user_otp = get_otp_from_form(request.form)
+        response,msg = verify_otp(user_otp)
+        if not response:
+            flash(msg,"error")
+            return redirect(url_for("auth.otp_verification"))
+        flash(msg,"success")
+        return redirect(url_for("auth.reset_password_route"))
     return render_template("auth/otp-verification.html")
+
+@auth.route("/auth/reset-password",methods=["GET","POST"])
+def reset_password_route():
+    if request.method == "POST":
+       response,msg =  reset_password(request.form.get("pw"))
+       if not response:
+           flash(msg,"error")
+           return redirect(url_for("auth.reset_password_route"))
+       flash(msg,"success")
+       return redirect(url_for("auth.login"))
+    return render_template("auth/reset-password.html")
 
 @auth.route("/auth/logout")
 def logout():
