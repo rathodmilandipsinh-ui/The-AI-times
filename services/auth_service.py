@@ -3,7 +3,7 @@ from flask import session
 from database import db
 from models.user import User
 from services.otp_service import generate_otp 
-from services.email_service import send_otp_email
+from services.email_service import send_registration_otp_email,send_reset_password_otp_email
 from services.password_service import (
     hash_password,
     verify_password
@@ -38,7 +38,7 @@ def register_user(form):
 
     session["purpose"] = "signup"
 
-    if not send_otp_email(form.get("email"), otp):
+    if not send_registration_otp_email(form.get("email"),otp):
         return False, "Unable to send verification email."
 
     return True, "Verification code sent successfully."
@@ -74,7 +74,7 @@ def forgot_password(email):
     session["reset_email"] = email 
     session["otp"] = otp
 
-    if not send_otp_email(email, otp): 
+    if not send_reset_password_otp_email(email, otp): 
         return False, "Unable to send OTP email."
     
     return True, "Verification code sent successfully."
@@ -132,6 +132,7 @@ def resend_otp():
 
     purpose = session.get("purpose")
 
+    otp = generate_otp()
     if purpose == "signup":
 
         signup_data = session.get("signup_data")
@@ -141,6 +142,9 @@ def resend_otp():
 
         email = signup_data["email"]
 
+        if not send_registration_otp_email(email, otp):
+            return False, "Unable to send OTP email."
+
     elif purpose == "reset_password":
 
         email = session.get("reset_email")
@@ -148,13 +152,12 @@ def resend_otp():
         if not email:
             return False, "Password reset session expired."
 
+        if not send_reset_password_otp_email(email, otp):
+                return False, "Unable to send OTP email."
+
     else:
         return False, "Invalid OTP request."
 
-    otp = generate_otp()
-
-    if not send_otp_email(email, otp):
-        return False, "Unable to send OTP email."
 
     return True, "A new OTP has been sent successfully."
 
