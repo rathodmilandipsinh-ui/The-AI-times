@@ -171,5 +171,136 @@
     </nav>
   </div>
 </section>
+  <!-- ============================================================
+     FEATURED NEWS — The AI Times
+     Static markup for now. Will later loop over articles from Flask:
+     {% for article in articles %} ... {% endfor %}
+     ============================================================ -->
+<section class="news-section">
+  <div class="news-container">
+
+    <header class="news-header">
+      <h2 class="news-heading">Featured News</h2>
+      <a href="#" class="news-view-all">
+        View All
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </header>
+
+    <div class="news-grid">
+
+      <!-- primary/featured story -->
+      <article class="news-card news-card-featured">
+        <div class="news-card-image">
+          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
+        </div>
+        <div class="news-card-body">
+          <span class="news-card-category">Research</span>
+          <h3 class="news-card-title">
+            <a href="#">New Model Architecture Claims Major Efficiency Gains Over Transformers</a>
+          </h3>
+          <p class="news-card-excerpt">
+            Researchers unveil an architecture that reduces training compute
+            while matching performance on standard benchmarks.
+          </p>
+          <div class="news-card-meta">
+            <span class="news-card-source">Nature</span>
+            <span class="news-card-dot" aria-hidden="true">&bull;</span>
+            <span class="news-card-time">3h ago</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- regular story -->
+      <article class="news-card">
+        <div class="news-card-image">
+          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
+        </div>
+        <div class="news-card-body">
+          <span class="news-card-category">Product</span>
+          <h3 class="news-card-title">
+            <a href="#">OpenAI Ships New Developer Tooling for Agentic Workflows</a>
+          </h3>
+          <div class="news-card-meta">
+            <span class="news-card-source">OpenAI</span>
+            <span class="news-card-dot" aria-hidden="true">&bull;</span>
+            <span class="news-card-time">5h ago</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <div class="news-card-image">
+          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
+        </div>
+        <div class="news-card-body">
+          <span class="news-card-category">Startups</span>
+          <h3 class="news-card-title">
+            <a href="#">AI Infra Startup Raises Series B to Expand Compute Access</a>
+          </h3>
+          <div class="news-card-meta">
+            <span class="news-card-source">TechCrunch</span>
+            <span class="news-card-dot" aria-hidden="true">&bull;</span>
+            <span class="news-card-time">8h ago</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <div class="news-card-image">
+          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
+        </div>
+        <div class="news-card-body">
+          <span class="news-card-category">Robotics</span>
+          <h3 class="news-card-title">
+            <a href="#">Humanoid Robots Move Closer to Commercial Deployment</a>
+          </h3>
+          <div class="news-card-meta">
+            <span class="news-card-source">IEEE Spectrum</span>
+            <span class="news-card-dot" aria-hidden="true">&bull;</span>
+            <span class="news-card-time">10h ago</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <div class="news-card-image">
+          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
+        </div>
+        <div class="news-card-body">
+          <span class="news-card-category">AI Tools</span>
+          <h3 class="news-card-title">
+            <a href="#">New Benchmark Suite Aims to Standardize AI Tool Comparisons</a>
+          </h3>
+          <div class="news-card-meta">
+            <span class="news-card-source">VentureBeat</span>
+            <span class="news-card-dot" aria-hidden="true">&bull;</span>
+            <span class="news-card-time">1d ago</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <div class="news-card-image">
+          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
+        </div>
+        <div class="news-card-body">
+          <span class="news-card-category">Research</span>
+          <h3 class="news-card-title">
+            <a href="#">Study Finds Diminishing Returns From Larger Training Runs</a>
+          </h3>
+          <div class="news-card-meta">
+            <span class="news-card-source">MIT Technology Review</span>
+            <span class="news-card-dot" aria-hidden="true">&bull;</span>
+            <span class="news-card-time">1d ago</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
 
 {% endblock %}

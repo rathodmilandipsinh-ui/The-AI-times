@@ -1,0 +1,114 @@
+/* ============================================================
+   FOOTER — The AI Times
+   ============================================================ */
+.footer {
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid rgba(20, 20, 31, 0.07);
+  padding: 32px 0 18px;
+  font-family: var(--hero-font-body);
+}
+
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* top row: brand + social */
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(20, 20, 31, 0.07);
+}
+
+.footer-logo {
+  font-family: var(--hero-font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--hero-ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.footer-tagline {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: var(--hero-ink-soft);
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: var(--hero-ink-soft);
+  background: rgba(20, 20, 31, 0.04);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-social-link:hover {
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--hero-accent-a);
+  transform: translateY(-2px);
+}
+
+/* bottom row: copyright + legal */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 16px;
+}
+
+.footer-copyright {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--hero-ink-soft);
+}
+
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-legal a {
+  font-size: 0.8rem;
+  color: var(--hero-ink-soft);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-legal a:hover {
+  color: var(--hero-accent-a);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 560px) {
+  .footer-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
