@@ -78,4 +78,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+    const resendButton = document.getElementById("resend-btn");
+    const countdown = document.getElementById("countdown");
+
+    if (resendButton && countdown) {
+
+        let seconds = 30;
+
+        const timer = setInterval(() => {
+
+            seconds--;
+
+            countdown.textContent = seconds;
+
+            if (seconds <= 0) {
+
+                clearInterval(timer);
+
+                resendButton.disabled = false;
+                resendButton.textContent = "Resend OTP";
+
+            }
+
+        }, 1000);
+
+    }
+
 });

@@ -145,23 +145,72 @@
     background:var(--primary-hover);
 }
 
+
 /* ===========================
-   LINKS
+   Resend OTP Section
 =========================== */
 
-.resend{
-    margin-top:25px;
-    color:var(--text-light);
+.resend-section{
+    margin-top: 25px;
+    text-align: center;
 }
 
-.resend a{
-    color:var(--primary);
-    text-decoration:none;
-    font-weight:600;
+.resend-section p{
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 12px;
 }
 
-.resend a:hover{
-    text-decoration:underline;
+/* Form */
+.resend-section form{
+    display: inline-block;
+}
+
+/* Button */
+.resend-btn{
+    background: transparent;
+    border: none;
+    color: #2563eb;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .25s;
+}
+
+/* Hover */
+.resend-btn:not(:disabled):hover{
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+/* Disabled State */
+.resend-btn:disabled{
+    color: #9ca3af;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+/* Countdown */
+#countdown{
+    font-weight: 700;
+    color: inherit;
+}
+
+/* Small screens */
+@media (max-width:600px){
+
+    .resend-section{
+        margin-top: 20px;
+    }
+
+    .resend-section p{
+        font-size: 13px;
+    }
+
+    .resend-btn{
+        font-size: 14px;
+    }
+
 }
 
 .back-link{

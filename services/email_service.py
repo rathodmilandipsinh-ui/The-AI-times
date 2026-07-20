@@ -6,7 +6,7 @@ from flask import current_app
 
 
 def send_registration_otp_email(user_email,otp):
-    send_otp_email(
+    return send_otp_email(
     user_email,
     otp,
     "Verify Your Email Address",
@@ -14,7 +14,7 @@ def send_registration_otp_email(user_email,otp):
 )
 
 def send_reset_password_otp_email(user_email,otp):
-    send_otp_email(
+    return send_otp_email(
     user_email,
     otp,
     "Password Reset Verification Code",

@@ -145,7 +145,7 @@ def resend_otp():
         if not send_registration_otp_email(email, otp):
             return False, "Unable to send OTP email."
 
-    elif purpose == "reset_password":
+    elif purpose == "reset-password":
 
         email = session.get("reset_email")
 

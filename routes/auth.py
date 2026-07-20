@@ -14,7 +14,8 @@ from services.auth_service import (
     forgot_password,
     reset_password,
     register_user,
-    create_user_from_session)
+    create_user_from_session,
+    resend_otp)
 from services.otp_service import (verify_otp,get_otp_from_form)
 
 
@@ -105,6 +106,18 @@ def reset_password_route():
        return redirect(url_for("auth.login"))
     
     return render_template("auth/reset-password.html")
+
+@auth.route("/resend-otp",methods=["POST"])
+def resend_otp_route():
+
+    success, message = resend_otp()
+
+    if success:
+        flash(message, "success")
+    else:
+        flash(message, "error")
+
+    return redirect(url_for("auth.otp_verification"))
 
 @auth.route("/auth/logout")
 def logout():
