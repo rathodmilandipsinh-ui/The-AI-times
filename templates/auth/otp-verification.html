@@ -23,7 +23,15 @@ Verify Email
         </p>
 
         <p class="email">
+            {% if reset_email in session %}
             {{ session.get('reset_email') }}
+
+            {% else %}
+
+            {{ session.get('signup_data')["email"] }}
+            {% endif %}
+
+
         </p>
 
         <form action="" method="POST">

@@ -15,24 +15,30 @@ from services.otp_service import (
 )
 
 
-def register_user(fullname, email, password):
+def register_user(form):
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(email=form.get("email")).first()
 
     if user:
         return False, "Email already exists."
 
     otp = generate_otp()
 
+    
+    i1 = form.getlist("interest")
+    i1 = ",".join(i1)
+
     session["signup_data"] = {
-        "fullname": fullname,
-        "email": email,
-        "password": hash_password(password)
+        "name": form.get("name"),
+        "email": form.get("email"),
+        "password": hash_password(form.get("password")),
+        "interests": i1,
+        "otp":otp
     }
 
-    session["otp_purpose"] = "signup"
+    session["purpose"] = "signup"
 
-    if not send_otp_email(email, otp):
+    if not send_otp_email(form.get("email"), otp):
         return False, "Unable to send verification email."
 
     return True, "Verification code sent successfully."
@@ -101,17 +107,17 @@ def create_user_from_session():
     if not signup_data:
         return False, "Signup session expired."
 
-    new_user = User(
-        fullname=signup_data["fullname"],
-        email=signup_data["email"],
-        password=signup_data["password"]
-    )
+    new_user = User(name=signup_data["name"],
+                    email=signup_data["email"],
+                    password=signup_data["password"],
+                    interests=signup_data["interests"],
+                    email_verified=True)
 
     db.session.add(new_user)
     db.session.commit()
 
     session.pop("signup_data", None)
-    session.pop("otp_purpose", None)
+    session.pop("purpose", None)
 
     return True, "Account created successfully."
 
@@ -124,7 +130,7 @@ def resend_otp():
             f"Please wait {resend_remaining()} seconds before requesting another OTP."
         )
 
-    purpose = session.get("otp_purpose")
+    purpose = session.get("purpose")
 
     if purpose == "signup":
 
