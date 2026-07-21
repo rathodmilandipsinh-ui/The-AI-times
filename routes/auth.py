@@ -17,6 +17,7 @@ from services.auth_service import (
     create_user_from_session,
     resend_otp)
 from services.otp_service import (verify_otp,get_otp_from_form)
+from data.data import get_interests
 
 
 
@@ -38,7 +39,8 @@ def signup():
 
         flash(msg,'success')
         return redirect(url_for("auth.otp_verification"))
-    return render_template("auth/signup.html")
+    interests = get_interests()
+    return render_template("auth/signup.html",interests=interests)
 
 @auth.route("/auth/login",methods=["GET","POST"])
 def login():

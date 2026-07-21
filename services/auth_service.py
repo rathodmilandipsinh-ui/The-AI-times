@@ -26,7 +26,6 @@ def register_user(form):
 
     
     i1 = form.getlist("interest")
-    i1 = ",".join(i1)
 
     session["signup_data"] = {
         "name": form.get("name"),

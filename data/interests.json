@@ -1,0 +1,84 @@
+{
+  "interests": [
+    {
+      "id": 1,
+      "name": "Artificial Intelligence"
+    },
+    {
+      "id": 2,
+      "name": "Machine Learning"
+    },
+    {
+      "id": 3,
+      "name": "Deep Learning"
+    },
+    {
+      "id": 4,
+      "name": "Generative AI"
+    },
+    {
+      "id": 5,
+      "name": "Large Language Models (LLMs)"
+    },
+    {
+      "id": 6,
+      "name": "Natural Language Processing (NLP)"
+    },
+    {
+      "id": 7,
+      "name": "Computer Vision"
+    },
+    {
+      "id": 8,
+      "name": "AI Agents"
+    },
+    {
+      "id": 9,
+      "name": "Robotics & Automation"
+    },
+    {
+      "id": 10,
+      "name": "AI Research"
+    },
+    {
+      "id": 11,
+      "name": "Open Source AI"
+    },
+    {
+      "id": 12,
+      "name": "AI Ethics"
+    },
+    {
+      "id": 13,
+      "name": "AI Startups"
+    },
+    {
+      "id": 14,
+      "name": "Healthcare AI"
+    },
+    {
+      "id": 15,
+      "name": "Education AI"
+    },
+    {
+      "id": 16,
+      "name": "Business AI"
+    },
+    {
+      "id": 17,
+      "name": "Coding Assistants"
+    },
+    {
+      "id": 18,
+      "name": "AI Tools"
+    },
+    {
+      "id": 19,
+      "name": "AI Hardware"
+    },
+    {
+      "id": 20,
+      "name": "AI Regulations"
+    }
+  ]
+}
