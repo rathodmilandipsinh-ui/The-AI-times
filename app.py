@@ -5,7 +5,6 @@ from config import Config
 from database import db
 from routes.auth import auth
 
-
 app = Flask(__name__)
 app.config.from_object(Config)
 
