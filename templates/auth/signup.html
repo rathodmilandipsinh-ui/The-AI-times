@@ -87,7 +87,11 @@
 
                 <div class="interest-grid">
 
-                    <label><input type="checkbox" name="interest" value="OpenAI"> OpenAI</label>
+                    {% for interest in interests %}
+                        <label><input type="checkbox" name="interest" value="{{interest.id}}"> {{interest.name}}</label>
+                    {% endfor %}
+
+                    <!-- <label><input type="checkbox" name="interest" value="OpenAI"> OpenAI</label>
 
                     <label><input type="checkbox" name="interest" value="Google Gemini"> Gemini</label>
 
@@ -101,7 +105,7 @@
 
                     <label><input type="checkbox" name="interest" value="Research"> Research</label>
 
-                    <label><input type="checkbox" name="interest" value="Cybersecurity"> Cybersecurity</label>
+                    <label><input type="checkbox" name="interest" value="Cybersecurity"> Cybersecurity</label> -->
 
                 </div>
 

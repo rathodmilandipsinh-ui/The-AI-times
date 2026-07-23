@@ -4,6 +4,7 @@ import os
 from config import Config
 from database import db
 from routes.auth import auth
+from routes.user import user
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -25,6 +26,7 @@ def privacy():
     return render_template("privacy.html")
 
 app.register_blueprint(auth)
+app.register_blueprint(user)
 
 if __name__ == "__main__":
     with app.app_context():
