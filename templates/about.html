@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    About
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="about-section">
+  <div class="about-container">
+
+    <header class="about-header">
+      <h1 class="about-heading">About The AI Times</h1>
+      <p class="about-subtext">
+        The AI Times is a daily-updated hub for artificial intelligence news —
+        research breakthroughs, product launches, startups, and industry shifts,
+        curated in one place so you don't have to chase a dozen sources.
+      </p>
+    </header>
+
+    <div class="about-content">
+      <h2>Why we built this</h2>
+      <p>
+        AI moves fast, and news about it is scattered across research papers,
+        company blogs, and tech journalism. The AI Times pulls it together and
+        keeps it organized by category, source, and recency.
+      </p>
+
+      <h2>What you'll find here</h2>
+      <ul>
+        <li>Latest and archived AI news in one searchable place</li>
+        <li>Coverage across research, products, startups, and policy</li>
+        <li>Category filters for major labs like OpenAI, Google, Anthropic, and Meta</li>
+      </ul>
+
+      <h2>This project</h2>
+      <p>
+        This site is a student-built project focused on aggregating AI news
+        from multiple sources and making it easy to browse and stay updated.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

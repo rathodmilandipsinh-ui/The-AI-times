@@ -1,0 +1,24 @@
+.about-section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.about-heading {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.about-subtext {
+  color: var(--text-muted, #666);
+  margin-bottom: 32px;
+}
+
+.about-content h2 {
+  margin-top: 28px;
+  margin-bottom: 8px;
+}
+
+.about-content ul {
+  padding-left: 20px;
+}
