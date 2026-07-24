@@ -48,7 +48,8 @@ def login():
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
-        response,msg =  login_user(email,password)
+        remember = request.form.get("remember") == "on" 
+        response,msg =  login_user(email,password,remember)
 
         if not response:
             flash(msg,"error")

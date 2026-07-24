@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
 
 load_dotenv()
 
@@ -13,5 +14,8 @@ class Config:
 
     SQLALCHEMY_DATABASE_URI = os.environ.get("DB_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    permanent_session_lifetime = timedelta(days=30)
+
     MAIL_EMAIL = os.environ.get("MAIL_EMAIL")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")

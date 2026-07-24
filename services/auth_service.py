@@ -47,7 +47,7 @@ def register_user(form):
     return True, "Verification code sent successfully."
 
 
-def login_user(email, password):
+def login_user(email, password,remember):
 
     user = User.query.filter_by(email=email).first()
 
@@ -56,6 +56,12 @@ def login_user(email, password):
 
     if not verify_password(user.password, password):
         return False, "Invalid email or password."
+
+    
+    if remember: 
+        session.permanent = True 
+    else: 
+        session.permanent = False
 
     session["user_id"] = user.id
 
