@@ -26,12 +26,16 @@ def register_user(form):
 
     
     i1 = form.getlist("interest")
+    
+    user_interest_ids = []
+    for i in i1:
+        user_interest_ids.append(int(i))
 
     session["signup_data"] = {
         "name": form.get("name"),
         "email": form.get("email"),
         "password": hash_password(form.get("password")),
-        "interests": i1,
+        "interests": user_interest_ids,
         "otp":otp
     }
 
