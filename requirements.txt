@@ -3,3 +3,5 @@ flask_sqlalchemy
 python-dotenv
 gunicorn
 Authlib
+requests
+apscheduler

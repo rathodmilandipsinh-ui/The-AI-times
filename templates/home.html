@@ -128,7 +128,7 @@
 <!-- ============================================================
      SEARCH & CATEGORIES
      ============================================================ -->
-<section class="search-section" id="trends"></section>
+<section class="search-section" id="trends">
   <div class="search-container">
 
     <header class="search-header">
@@ -154,29 +154,26 @@
       <button type="submit" class="search-btn">Search</button>
     </form>
 
-    
+
     <nav class="category-nav" aria-label="News categories">
       <ul class="category-list">
-        <li><button type="button" class="category-chip category-chip-active" data-category="all">All</button></li>
-        <li><button type="button" class="category-chip" data-category="openai">OpenAI</button></li>
-        <li><button type="button" class="category-chip" data-category="google">Google</button></li>
-        <li><button type="button" class="category-chip" data-category="microsoft">Microsoft</button></li>
-        <li><button type="button" class="category-chip" data-category="anthropic">Anthropic</button></li>
-        <li><button type="button" class="category-chip" data-category="meta">Meta</button></li>
-        <li><button type="button" class="category-chip" data-category="robotics">Robotics</button></li>
-        <li><button type="button" class="category-chip" data-category="research">Research</button></li>
-        <li><button type="button" class="category-chip" data-category="startups">Startups</button></li>
-        <li><button type="button" class="category-chip" data-category="ai-tools">AI Tools</button></li>
+        <li>
+          <a href="{{ url_for('home') }}" class="category-chip {% if not selected_category %}category-chip-active{% endif %}">All</a>
+        </li>
+        {% for interest in interests %}
+        <li>
+          <a href="{{ url_for('home', category=interest.id) }}" class="category-chip {% if selected_category == interest.id %}category-chip-active{% endif %}">{{ interest.name }}</a>
+        </li>
+        {% endfor %}
       </ul>
     </nav>
-  </div>
 </section>
-  <!-- ============================================================
+
+<!-- ============================================================
      FEATURED NEWS — The AI Times
-     Static markup for now. Will later loop over articles from Flask:
-     {% for article in articles %} ... {% endfor %}
+     Loops over real articles from Flask.
      ============================================================ -->
-<section class="news-section" id="news"></section>
+<section class="news-section" id="news">
   <div class="news-container">
 
     <header class="news-header">
@@ -191,113 +188,44 @@
 
     <div class="news-grid">
 
-      <!-- primary/featured story -->
-      <article class="news-card news-card-featured">
-        <div class="news-card-image">
-          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
-        </div>
-        <div class="news-card-body">
-          <span class="news-card-category">Research</span>
-          <h3 class="news-card-title">
-            <a href="#">New Model Architecture Claims Major Efficiency Gains Over Transformers</a>
-          </h3>
-          <p class="news-card-excerpt">
-            Researchers unveil an architecture that reduces training compute
-            while matching performance on standard benchmarks.
-          </p>
-          <div class="news-card-meta">
-            <span class="news-card-source">Nature</span>
-            <span class="news-card-dot" aria-hidden="true">&bull;</span>
-            <span class="news-card-time">3h ago</span>
+      {% for article in articles %}
+        {% if loop.first %}
+        <article class="news-card news-card-featured">
+          <div class="news-card-image">
+            <img src="{{ article.image_url or url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
           </div>
-        </div>
-      </article>
-
-      <!-- regular story -->
-      <article class="news-card">
-        <div class="news-card-image">
-          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
-        </div>
-        <div class="news-card-body">
-          <span class="news-card-category">Product</span>
-          <h3 class="news-card-title">
-            <a href="#">OpenAI Ships New Developer Tooling for Agentic Workflows</a>
-          </h3>
-          <div class="news-card-meta">
-            <span class="news-card-source">OpenAI</span>
-            <span class="news-card-dot" aria-hidden="true">&bull;</span>
-            <span class="news-card-time">5h ago</span>
+          <div class="news-card-body">
+            <span class="news-card-category">{{ article.source or "News" }}</span>
+            <h3 class="news-card-title">
+              <a href="{{ article.url }}" target="_blank" rel="noopener">{{ article.title }}</a>
+            </h3>
+            <p class="news-card-excerpt">{{ article.description }}</p>
+            <div class="news-card-meta">
+              <span class="news-card-source">{{ article.source }}</span>
+              <span class="news-card-dot" aria-hidden="true">&bull;</span>
+              <span class="news-card-time">{{ article.published_at.strftime('%b %d, %Y') if article.published_at else '' }}</span>
+            </div>
           </div>
-        </div>
-      </article>
-
-      <article class="news-card">
-        <div class="news-card-image">
-          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
-        </div>
-        <div class="news-card-body">
-          <span class="news-card-category">Startups</span>
-          <h3 class="news-card-title">
-            <a href="#">AI Infra Startup Raises Series B to Expand Compute Access</a>
-          </h3>
-          <div class="news-card-meta">
-            <span class="news-card-source">TechCrunch</span>
-            <span class="news-card-dot" aria-hidden="true">&bull;</span>
-            <span class="news-card-time">8h ago</span>
+        </article>
+        {% else %}
+        <article class="news-card">
+          <div class="news-card-image">
+            <img src="{{ article.image_url or url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
           </div>
-        </div>
-      </article>
-
-      <article class="news-card">
-        <div class="news-card-image">
-          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
-        </div>
-        <div class="news-card-body">
-          <span class="news-card-category">Robotics</span>
-          <h3 class="news-card-title">
-            <a href="#">Humanoid Robots Move Closer to Commercial Deployment</a>
-          </h3>
-          <div class="news-card-meta">
-            <span class="news-card-source">IEEE Spectrum</span>
-            <span class="news-card-dot" aria-hidden="true">&bull;</span>
-            <span class="news-card-time">10h ago</span>
+          <div class="news-card-body">
+            <span class="news-card-category">{{ article.source or "News" }}</span>
+            <h3 class="news-card-title">
+              <a href="{{ article.url }}" target="_blank" rel="noopener">{{ article.title }}</a>
+            </h3>
+            <div class="news-card-meta">
+              <span class="news-card-source">{{ article.source }}</span>
+              <span class="news-card-dot" aria-hidden="true">&bull;</span>
+              <span class="news-card-time">{{ article.published_at.strftime('%b %d, %Y') if article.published_at else '' }}</span>
+            </div>
           </div>
-        </div>
-      </article>
-
-      <article class="news-card">
-        <div class="news-card-image">
-          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
-        </div>
-        <div class="news-card-body">
-          <span class="news-card-category">AI Tools</span>
-          <h3 class="news-card-title">
-            <a href="#">New Benchmark Suite Aims to Standardize AI Tool Comparisons</a>
-          </h3>
-          <div class="news-card-meta">
-            <span class="news-card-source">VentureBeat</span>
-            <span class="news-card-dot" aria-hidden="true">&bull;</span>
-            <span class="news-card-time">1d ago</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="news-card">
-        <div class="news-card-image">
-          <img src="{{ url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
-        </div>
-        <div class="news-card-body">
-          <span class="news-card-category">Research</span>
-          <h3 class="news-card-title">
-            <a href="#">Study Finds Diminishing Returns From Larger Training Runs</a>
-          </h3>
-          <div class="news-card-meta">
-            <span class="news-card-source">MIT Technology Review</span>
-            <span class="news-card-dot" aria-hidden="true">&bull;</span>
-            <span class="news-card-time">1d ago</span>
-          </div>
-        </div>
-      </article>
+        </article>
+        {% endif %}
+      {% endfor %}
 
     </div>
   </div>
