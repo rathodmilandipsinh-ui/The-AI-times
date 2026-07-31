@@ -61,6 +61,7 @@ def fetch_news():
 app.register_blueprint(auth)
 app.register_blueprint(user)
 
+
 def scheduled_fetch():
     with app.app_context():
         count = fetch_and_store_articles()
@@ -81,4 +82,4 @@ if __name__ == "__main__":
     #     debug=True
     # )
 
-    app.run(debug=True)
+    app.run(debug=False)

@@ -476,7 +476,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 18px 22px;   /* vertical | horizontal spacing */
+  gap: 26px 22px;   /* vertical | horizontal spacing */
   margin: 0;
   padding: 0;
 }
