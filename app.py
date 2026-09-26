@@ -9,11 +9,14 @@ from models.article import Article
 from apscheduler.schedulers.background import BackgroundScheduler
 from services.news_service import fetch_and_store_articles
 from datetime import datetime
+from services.email_service import send_news_email
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
 db.init_app(app)
+
+
 
 # app.secret_key = os.getenv("SECRET_KEY")
 
@@ -66,6 +69,24 @@ def scheduled_fetch():
     with app.app_context():
         count = fetch_and_store_articles()
         print(f"[Scheduler] Fetched {count} new articles.")
+        news_list = [
+            {
+                "title": "OpenAI releases new AI model",
+                "description": "OpenAI announced a new model...",
+                "url": "https://example.com/news1"
+            },
+            {
+                "title": "Google announces AI update",
+                "description": "Google introduced a new AI feature...",
+                "url": "https://example.com/news2"
+            }
+        ]
+
+        send_news_email(
+            recipient_email="vajabhavin96@gmail.com",
+            username="Bhavin",
+            news_list=news_list
+        )
 
 
 if __name__ == "__main__":
