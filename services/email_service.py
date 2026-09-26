@@ -100,4 +100,3 @@ def send_news_email(username,recipient_email,news_list):
         print("Error sending email:", e)
 
 
-# Example

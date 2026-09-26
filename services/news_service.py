@@ -43,7 +43,10 @@ def fetch_and_store_articles():
     url = "https://newsapi.org/v2/everything"
     new_count = 0
 
-    # Cache all existing articles by URL
+    # This will contain ONLY articles fetched from NewsAPI
+    fetched_articles = []
+
+    # Cache existing articles
     article_cache = {
         article.url: article
         for article in Article.query.all()
@@ -62,28 +65,38 @@ def fetch_and_store_articles():
         data = response.json()
 
         if data.get("status") != "ok":
-            print(f"NewsAPI error for '{interest['name']}': {data.get('message')}")
+            print(
+                f"NewsAPI error for '{interest['name']}': "
+                f"{data.get('message')}"
+            )
             continue
 
         for item in data.get("articles", []):
+
             article_url = item.get("url")
 
             if not article_url:
                 continue
 
-            # Check if article already exists (database or current session)
+            # Check if article already exists
             article = article_cache.get(article_url)
 
             if article:
                 current_interests = article.interest_ids or []
 
                 if interest["id"] not in current_interests:
-                    article.interest_ids = current_interests + [interest["id"]]
+                    article.interest_ids = (
+                        current_interests + [interest["id"]]
+                    )
+
+                # This article WAS fetched by NewsAPI
+                fetched_articles.append(article)
 
                 continue
 
             # Parse published date
             published_at = None
+
             if item.get("publishedAt"):
                 try:
                     published_at = datetime.strptime(
@@ -106,16 +119,19 @@ def fetch_and_store_articles():
 
             db.session.add(new_article)
 
-            # Add to cache immediately so duplicates in this run are detected
             article_cache[article_url] = new_article
+
+            # This article WAS fetched by NewsAPI
+            fetched_articles.append(new_article)
 
             new_count += 1
 
     try:
         db.session.commit()
+
     except Exception as e:
         db.session.rollback()
         print(f"Error saving articles: {e}")
         raise
 
-    return new_count
+    return new_count,fetched_articles

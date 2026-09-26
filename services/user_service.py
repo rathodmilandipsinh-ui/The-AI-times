@@ -24,3 +24,7 @@ def update_user(form):
 
     db.session.commit()
     return True,msg
+
+def get_users():
+    users = User.query.all()
+    return users
