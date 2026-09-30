@@ -60,6 +60,34 @@ def fetch_news():
     count = fetch_and_store_articles()
     return f"Fetched {count} new articles."
 
+@app.route('/admin/cleanup-news')
+def cleanup_news():
+    from services.news_service import cleanup_non_ai_articles
+
+    count = cleanup_non_ai_articles()
+
+    return f"Deleted {count} non-AI articles."
+
+@app.route('/admin/check-news')
+def check_news():
+    from models.article import Article
+    from services.news_service import is_ai_relevant
+
+    articles = Article.query.all()
+
+    output = []
+
+    for article in articles[:30]:
+        result = is_ai_relevant(
+            article.title,
+            article.description
+        )
+
+        output.append(
+            f"{result} | {article.title}"
+        )
+
+    return "<br>".join(output)
 
 app.register_blueprint(auth)
 app.register_blueprint(user)
