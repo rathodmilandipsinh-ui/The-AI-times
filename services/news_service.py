@@ -1,3 +1,4 @@
+import re
 import requests
 from datetime import datetime
 from flask import current_app
@@ -11,12 +12,12 @@ INTEREST_KEYWORDS = {
     1: [
         "artificial intelligence",
         "artificial-intelligence",
-        " ai "
+        "ai"
     ],
     2: [
         "machine learning",
         "machine-learning",
-        " ml "
+        "ml"
     ],
     3: [
         "deep learning",
@@ -131,33 +132,43 @@ STRONG_AI_TERMS = [
 ]
 
 
+def has_term(text, term):
+    """
+    Match whole words/phrases only,
+    so 'llm' will not match inside 'Hallmark'.
+    """
+    pattern = (
+        r'(?<![a-z0-9])'
+        + re.escape(term.lower().strip())
+        + r'(?![a-z0-9])'
+    )
+
+    return re.search(pattern, text) is not None
+
+
 def is_ai_relevant(title, description):
     """
     Determines whether AI is actually a meaningful part
     of the article instead of just being mentioned once.
     """
 
+    title_text = (title or "").lower()
     text = f"{title or ''} {description or ''}".lower()
 
-    # Strong AI terms
+    # A strong AI term in the TITLE is a very strong signal.
+    for term in STRONG_AI_TERMS:
+        if has_term(title_text, term):
+            return True
+
+    # Multiple strong AI concepts anywhere in the text.
     strong_matches = 0
 
     for term in STRONG_AI_TERMS:
-        if term in text:
+        if has_term(text, term):
             strong_matches += 1
 
-    # If multiple strong AI concepts appear, keep it.
-    if strong_matches >= 2:
-        return True
+    return strong_matches >= 2
 
-    # A strong AI term in the TITLE is a very strong signal.
-    title_text = (title or "").lower()
-
-    for term in STRONG_AI_TERMS:
-        if term in title_text:
-            return True
-
-    return False
 
 def cleanup_non_ai_articles():
     """
@@ -201,7 +212,8 @@ def cleanup_non_ai_articles():
     )
 
     return deleted_count
-    
+
+
 def get_interest_ids(title, description):
     """
     Assign AI subcategories based on article content.
@@ -215,7 +227,7 @@ def get_interest_ids(title, description):
 
         for keyword in keywords:
 
-            if keyword.lower() in text:
+            if has_term(text, keyword):
                 matched_interests.append(interest_id)
                 break
 
@@ -234,6 +246,7 @@ def fetch_and_store_articles():
     new_count = 0
 
     fetched_articles = []
+    seen_urls = set()
 
     # Existing articles cache
     article_cache = {
@@ -327,7 +340,8 @@ def fetch_and_store_articles():
 
             if article:
 
-                current_interests = (
+                # Build a NEW list so SQLAlchemy detects the change
+                current_interests = list(
                     article.interest_ids or []
                 )
 
@@ -347,7 +361,9 @@ def fetch_and_store_articles():
 
                     article.interest_ids = current_interests
 
-                fetched_articles.append(article)
+                if article_url not in seen_urls:
+                    seen_urls.add(article_url)
+                    fetched_articles.append(article)
 
                 continue
 
@@ -408,6 +424,7 @@ def fetch_and_store_articles():
 
             article_cache[article_url] = new_article
 
+            seen_urls.add(article_url)
             fetched_articles.append(new_article)
 
             new_count += 1

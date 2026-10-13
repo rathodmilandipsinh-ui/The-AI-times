@@ -1,5 +1,7 @@
-from flask import Flask,render_template,request
-import os 
+from flask import Flask, render_template, request
+import os
+
+from sqlalchemy import or_
 
 from config import Config
 from database import db
@@ -17,7 +19,6 @@ app.config.from_object(Config)
 db.init_app(app)
 
 
-
 # app.secret_key = os.getenv("SECRET_KEY")
 
 @app.route("/")
@@ -25,13 +26,28 @@ def home():
     from data.data import get_interests
 
     category = request.args.get("category", type=int)
+    q = request.args.get("q", "").strip()
 
-    all_articles = Article.query.order_by(Article.published_at.desc()).all()
+    query = Article.query
 
+    # Search: filter in SQL by title/description
+    if q:
+        like = f"%{q}%"
+        query = query.filter(
+            or_(
+                Article.title.ilike(like),
+                Article.description.ilike(like)
+            )
+        )
+
+    articles = query.order_by(Article.published_at.desc()).all()
+
+    # Category: interest_ids is a JSON list, so filter in Python
     if category:
-        articles = [a for a in all_articles if a.interest_ids and category in a.interest_ids]
-    else:
-        articles = all_articles
+        articles = [
+            a for a in articles
+            if a.interest_ids and category in [int(i) for i in a.interest_ids]
+        ]
 
     articles = articles[:60]
 
@@ -39,26 +55,31 @@ def home():
         "home.html",
         articles=articles,
         interests=get_interests(),
-        selected_category=category
+        selected_category=category,
+        q=q
     )
+
 
 @app.route("/terms")
 def terms():
     return render_template("terms.html")
 
+
 @app.route("/privacy")
 def privacy():
     return render_template("privacy.html")
+
 
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+
 @app.route('/admin/fetch-news')
 def fetch_news():
-    from services.news_service import fetch_and_store_articles
-    count = fetch_and_store_articles()
+    count, _ = fetch_and_store_articles()
     return f"Fetched {count} new articles."
+
 
 @app.route('/admin/cleanup-news')
 def cleanup_news():
@@ -68,9 +89,27 @@ def cleanup_news():
 
     return f"Deleted {count} non-AI articles."
 
+
+@app.route('/admin/retag-news')
+def retag_news():
+    from services.news_service import get_interest_ids
+
+    updated = 0
+
+    for a in Article.query.all():
+        ids = get_interest_ids(a.title, a.description)
+
+        if ids != (a.interest_ids or []):
+            a.interest_ids = ids
+            updated += 1
+
+    db.session.commit()
+
+    return f"Retagged {updated} articles."
+
+
 @app.route('/admin/check-news')
 def check_news():
-    from models.article import Article
     from services.news_service import is_ai_relevant
 
     articles = Article.query.all()
@@ -89,14 +128,14 @@ def check_news():
 
     return "<br>".join(output)
 
+
 app.register_blueprint(auth)
 app.register_blueprint(user)
 
 
 def scheduled_fetch():
     with app.app_context():
-        print("hi")
-        count,fetched_articles = fetch_and_store_articles()
+        count, fetched_articles = fetch_and_store_articles()
         print(f"[Scheduler] Fetched {count} new articles.")
         process_personalized_news(fetched_articles)
 
@@ -106,7 +145,12 @@ if __name__ == "__main__":
         db.create_all()
 
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=scheduled_fetch, trigger="interval", hours=24, next_run_time=datetime.now())
+    scheduler.add_job(
+        func=scheduled_fetch,
+        trigger="interval",
+        hours=24,
+        next_run_time=datetime.now()
+    )
     scheduler.start()
 
     # app.run(
