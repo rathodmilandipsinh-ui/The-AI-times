@@ -2,7 +2,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-from flask import current_app,render_template
+from flask import current_app,render_template,url_for
 
 
 def send_registration_otp_email(user_email,otp):
@@ -62,30 +62,28 @@ The AI Times Team
         print(e)
         return False
 
-def send_news_email(username,recipient_email,news_list):
+def send_news_email(username, recipient_email, news_list):
 
+    sender_email = current_app.config["MAIL_EMAIL"]
+    sender_password = current_app.config["MAIL_PASSWORD"]
+
+    # Render email template
     html_content = render_template(
         "news_email.html",
         username=username,
         subject="Today's AI News",
-        news_list=news_list
+        news_list=news_list,
     )
-    
-    sender_email = current_app.config["MAIL_EMAIL"]
-    sender_password = current_app.config["MAIL_PASSWORD"]
 
     # Create email
-
     msg = MIMEMultipart("alternative")
-
     msg["Subject"] = "Today's AI News"
     msg["From"] = sender_email
     msg["To"] = recipient_email
 
-    # Email body
-    html_part = MIMEText(html_content, "html")
+    # Attach HTML content
+    html_part = MIMEText(html_content, "html", "utf-8")
     msg.attach(html_part)
-
 
     # Send email
     try:
@@ -94,9 +92,14 @@ def send_news_email(username,recipient_email,news_list):
             server.login(sender_email, sender_password)
             server.send_message(msg)
 
-        print("News email sent successfully.")
+        print(f"News email sent successfully to {recipient_email}.")
 
-    except Exception as e:
-        print("Error sending email:", e)
+        return True
 
+    except Exception:
+        current_app.logger.exception(
+            "Error sending news email to %s",
+            recipient_email
+        )
+        return False
 

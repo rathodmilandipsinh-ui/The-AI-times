@@ -55,7 +55,9 @@ def home():
 
     user = session.get("user_id")
     current_user = User.query.filter_by(id=user).first()
-    saved_articles = current_user.saved_articles or []
+    saved_articles = []
+    if current_user:
+        saved_articles = current_user.saved_articles
 
     return render_template(
         "home.html",
@@ -104,7 +106,7 @@ if __name__ == "__main__":
         hours=24,
         next_run_time=datetime.now()
     )
-    # scheduler.start()
+    scheduler.start()
 
     # app.run(
     #     host="0.0.0.0",

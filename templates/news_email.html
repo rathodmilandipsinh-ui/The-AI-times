@@ -1,22 +1,77 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{{ subject }}</title>
-</head>
+<!-- News Articles -->
+{% for news in news_list %}
+<tr>
+    <td style="padding:12px 28px;">
 
-<body>
-    <h1>Hello {{ username }}!</h1>
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f8fafc;
+                      border:1px solid #e2e8f0;
+                      border-radius:10px;">
 
-    <p>Here are the latest AI news:</p>
+            <!-- Article Image -->
+            {% if news.image_url %}
+            <tr>
+                <td style="padding:0;">
+                    <a href="{{ news.url }}" target="_blank" style="text-decoration:none;">
+                        <img src="{{ news.image_url }}" alt="" width="544" style="display:block; width:100%; max-width:544px;
+                       height:auto; border:0; border-radius:10px 10px 0 0;">
+                    </a>
+                </td>
+            </tr>
+            {% endif %}
 
-    {% for news in news_list %}
-        <div>
-            <h2>{{ news.title }}</h2>
-            <p>{{ news.description }}</p>
-            <a href="{{ news.url }}">Read More</a>
-        </div>
-        <hr>
-    {% endfor %}
-</body>
-</html>
+            <!-- Article Content -->
+            <tr>
+                <td style="padding:20px;">
+
+                    <p style="margin:0 0 10px;
+                              color:#2563eb;
+                              font-size:11px;
+                              font-weight:bold;
+                              text-transform:uppercase;
+                              letter-spacing:1px;">
+                        {{ news.source or "AI News" }}
+                    </p>
+
+                    <h3 style="margin:0 0 12px;
+                               font-size:18px;
+                               line-height:1.5;
+                               font-weight:700;">
+                        <a href="{{ news.url }}" target="_blank" style="color:#0f172a;
+                                  text-decoration:none;">
+                            {{ news.title }}
+                        </a>
+                    </h3>
+
+                    {% if news.description %}
+                    <p style="margin:0 0 18px;
+                              color:#475569;
+                              font-size:14px;
+                              line-height:1.8;">
+                        {{ news.description }}
+                    </p>
+                    {% endif %}
+
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td style="background-color:#2563eb;
+                                       border-radius:6px;">
+                                <a href="{{ news.url }}" target="_blank" style="display:inline-block;
+                                          padding:11px 18px;
+                                          color:#ffffff;
+                                          font-size:13px;
+                                          font-weight:bold;
+                                          text-decoration:none;">
+                                    Read Full Story &rarr;
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+
+        </table>
+
+    </td>
+</tr>
+{% endfor %}
