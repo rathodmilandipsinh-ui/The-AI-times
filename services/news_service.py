@@ -301,6 +301,7 @@ def fetch_and_store_articles():
 
             title = item.get("title") or ""
             description = item.get("description") or ""
+            image_url = item.get("urlToImage") or None
 
             # -----------------------------------------
             # AI RELEVANCE FILTER
@@ -312,6 +313,10 @@ def fetch_and_store_articles():
                     f"Rejected non-AI article: {title}"
                 )
 
+                continue
+
+            if not image_url:
+                f"Rejected uncategorized AI article By Image: {title}"
                 continue
 
             # -----------------------------------------

@@ -4,6 +4,7 @@ from utils.auth import login_required
 from database import db
 from models.article import Article
 from models.user import User
+from flask import current_app
 
 saved_news = Blueprint("saved_news", __name__)
 
