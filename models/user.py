@@ -13,6 +13,8 @@ class User(db.Model):
 
     interests = db.Column(JSON)   # JSON or comma-separated list
 
+    saved_articles = db.Column(JSON)
+
     email_verified = db.Column(db.Boolean, default=False)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow())

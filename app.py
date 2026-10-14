@@ -7,6 +7,7 @@ from config import Config
 from database import db
 from routes.auth import auth
 from routes.user import user
+from routes.saved_news import saved_news
 from models.article import Article
 from apscheduler.schedulers.background import BackgroundScheduler
 from services.news_service import fetch_and_store_articles
@@ -74,63 +75,9 @@ def privacy():
 def about():
     return render_template('about.html')
 
-
-@app.route('/admin/fetch-news')
-def fetch_news():
-    count, _ = fetch_and_store_articles()
-    return f"Fetched {count} new articles."
-
-
-@app.route('/admin/cleanup-news')
-def cleanup_news():
-    from services.news_service import cleanup_non_ai_articles
-
-    count = cleanup_non_ai_articles()
-
-    return f"Deleted {count} non-AI articles."
-
-
-@app.route('/admin/retag-news')
-def retag_news():
-    from services.news_service import get_interest_ids
-
-    updated = 0
-
-    for a in Article.query.all():
-        ids = get_interest_ids(a.title, a.description)
-
-        if ids != (a.interest_ids or []):
-            a.interest_ids = ids
-            updated += 1
-
-    db.session.commit()
-
-    return f"Retagged {updated} articles."
-
-
-@app.route('/admin/check-news')
-def check_news():
-    from services.news_service import is_ai_relevant
-
-    articles = Article.query.all()
-
-    output = []
-
-    for article in articles[:30]:
-        result = is_ai_relevant(
-            article.title,
-            article.description
-        )
-
-        output.append(
-            f"{result} | {article.title}"
-        )
-
-    return "<br>".join(output)
-
-
 app.register_blueprint(auth)
 app.register_blueprint(user)
+app.register_blueprint(saved_news)
 
 
 def scheduled_fetch():

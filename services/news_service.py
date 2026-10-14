@@ -363,7 +363,6 @@ def fetch_and_store_articles():
 
                 if article_url not in seen_urls:
                     seen_urls.add(article_url)
-                    fetched_articles.append(article)
 
                 continue
 

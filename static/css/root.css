@@ -2,7 +2,7 @@
    FLASH ALERT
 =========================== */
 
-.flash-container{
+.flash-container,.flash-con{
     position:fixed;
     top:90px;
     right:20px;
