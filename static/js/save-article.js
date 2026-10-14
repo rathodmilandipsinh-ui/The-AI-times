@@ -1,4 +1,3 @@
-
 document.addEventListener("click", async function (event) {
     const button = event.target.closest(".save-article-btn");
 
@@ -14,44 +13,94 @@ document.addEventListener("click", async function (event) {
             }
         });
 
-        const contentType = response.headers.get("content-type") || "";
+        const contentType =
+            response.headers.get("content-type") || "";
 
         if (!contentType.includes("application/json")) {
-            console.error("Expected JSON but received:", await response.text());
-            const newdiv = document.createElement('div')
-            newdiv.classList = "flash-con flash-container"
-            newdiv.innerHTML = `
-        <div class="flash flash-error">
-            <span>Please log in to save articles.</span>
-            <button class="flash-close">&times;</button>
-        </div>`
-            document.body.appendChild(newdiv)
-            setTimeout(() => {
-                document.querySelector(".flash-con").remove()
-            }, 3000);
-            // alert("Your session may have expired. Please log in to save articles.");
+            console.error(
+                "Expected JSON but received:",
+                await response.text()
+            );
 
+            showSaveFlash("Please log in to save articles.", "error");
             return;
         }
 
         const data = await response.json();
 
         if (response.status === 401 && data.login_required) {
-            alert("Login is required to save articles.");
+            showSaveFlash("Please log in to save articles.", "error");
             return;
         }
 
         if (!response.ok || !data.success) {
-            throw new Error(data.message || "Unable to save article.");
+            throw new Error(
+                data.message || "Unable to update saved article."
+            );
         }
 
-        button.classList.add("saved");
-        button.title = "Article saved";
+        const icon = button.querySelector("img");
+
+        // Use the actual state returned by Flask.
+        const isSaved = data.saved;
+
+        icon.src = isSaved
+            ? button.dataset.savedIcon
+            : button.dataset.unsavedIcon;
+
+        button.classList.toggle("saved", isSaved);
+
+        button.title = isSaved
+            ? "Remove saved article"
+            : "Save article";
+
+        button.setAttribute(
+            "aria-label",
+            button.title
+        );
+
+        showSaveFlash(
+            data.message || (isSaved
+                ? "Article saved successfully."
+                : "Article removed from saved articles."),
+            "success"
+        );
 
     } catch (error) {
         console.error("Save article error:", error);
-        alert(error.message || "Something went wrong.");
+        showSaveFlash(error.message || "Something went wrong.", "error");
+
     } finally {
         button.disabled = false;
     }
 });
+
+
+function showSaveFlash(message, type = "success") {
+    // Remove an existing save notification.
+    document.querySelectorAll(".save-flash-container")
+        .forEach(element => element.remove());
+
+    const container = document.createElement("div");
+    container.className = "flash-con flash-container save-flash-container";
+
+    const flash = document.createElement("div");
+    flash.className = `flash flash-${type}`;
+
+    const text = document.createElement("span");
+    text.textContent = message;
+
+    const close = document.createElement("button");
+    close.type = "button";
+    close.className = "flash-close";
+    close.setAttribute("aria-label", "Close notification");
+    close.textContent = "×";
+
+    close.addEventListener("click", () => container.remove());
+
+    flash.append(text, close);
+    container.appendChild(flash);
+    document.body.appendChild(container);
+
+    setTimeout(() => container.remove(), 3000);
+}

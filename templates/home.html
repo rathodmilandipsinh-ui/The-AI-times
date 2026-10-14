@@ -191,7 +191,7 @@ Home
       {% if loop.first %}
       <article class="news-card news-card-featured">
         <div class="news-card-image">
-          <img src="{{ article.image_url or url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
+          <img src="{{ article.image_url or url_for('static', filename='images/placeholder.png') }}" alt="">
         </div>
         <div class="news-card-body">
           <span class="news-card-category">{{ article.source or "News" }}</span>
@@ -204,18 +204,26 @@ Home
             <span class="news-card-dot" aria-hidden="true">&bull;</span>
             <span class="news-card-time">{{ article.published_at.strftime('%b %d, %Y') if article.published_at else ''}}
             </span>
-            <button type="button" class="save-article-btn"
-              data-save-url="{{ url_for('saved_news.save_article', article_id=article.id) }}" title="Save article">
+            <button type="button" class="save-article-btn {% if article.id in saved_articles %}saved{% endif %}"
+            data-save-url="{{ url_for('saved_news.save_article', article_id=article.id) }}"
+            data-unsaved-icon="{{ url_for('static', filename='images/save.svg') }}"
+            data-saved-icon="{{ url_for('static', filename='images/saved.svg') }}"
+            title="{{ 'Remove saved article' if article.id in saved_articles else 'Save article' }}"
+            aria-label="Toggle saved article">
 
-              <img src="{{ url_for('static', filename='images/save.svg') }}" alt="Save article" width="22" height="22">
-            </button>
+            <img src=" {% if article.id in saved_articles %}
+              {{ url_for('static', filename='images/saved.svg') }}
+            {% else %}
+              {{ url_for('static', filename='images/save.svg') }}
+            {% endif %} " alt="Save article" width="22" height="22">
+          </button>
           </div>
         </div>
       </article>
       {% else %}
       <article class="news-card">
         <div class="news-card-image">
-          <img src="{{ article.image_url or url_for('static', filename='images/news/placeholder.jpg') }}" alt="">
+          <img src="{{ article.image_url or url_for('static', filename='images/placeholder.png') }}" alt="">
         </div>
         <div class="news-card-body">
           <span class="news-card-category">{{ article.source or "News" }}</span>
@@ -228,10 +236,18 @@ Home
             <span class="news-card-time">{{ article.published_at.strftime('%b %d, %Y') if article.published_at else ''}}
             </span>
           </div>
-          <button type="button" class="save-article-btn"
-            data-save-url="{{ url_for('saved_news.save_article', article_id=article.id) }}" title="Save article">
+          <button type="button" class="save-article-btn {% if article.id in saved_articles %}saved{% endif %}"
+            data-save-url="{{ url_for('saved_news.save_article', article_id=article.id) }}"
+            data-unsaved-icon="{{ url_for('static', filename='images/save.svg') }}"
+            data-saved-icon="{{ url_for('static', filename='images/saved.svg') }}"
+            title="{{ 'Remove saved article' if article.id in saved_articles else 'Save article' }}"
+            aria-label="Toggle saved article">
 
-            <img src="{{ url_for('static', filename='images/save.svg') }}" alt="Save article" width="22" height="22">
+            <img src=" {% if article.id in saved_articles %}
+              {{ url_for('static', filename='images/saved.svg') }}
+            {% else %}
+              {{ url_for('static', filename='images/save.svg') }}
+            {% endif %} " alt="Save article" width="22" height="22">
           </button>
         </div>
       </article>

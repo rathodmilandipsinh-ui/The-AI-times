@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,session
 import os
 
 from sqlalchemy import or_
@@ -9,6 +9,7 @@ from routes.auth import auth
 from routes.user import user
 from routes.saved_news import saved_news
 from models.article import Article
+from models.user import User
 from apscheduler.schedulers.background import BackgroundScheduler
 from services.news_service import fetch_and_store_articles
 from datetime import datetime
@@ -52,12 +53,17 @@ def home():
 
     articles = articles[:60]
 
+    user = session.get("user_id")
+    current_user = User.query.filter_by(id=user).first()
+    saved_articles = current_user.saved_articles or []
+
     return render_template(
         "home.html",
         articles=articles,
         interests=get_interests(),
         selected_category=category,
-        q=q
+        q=q,
+        saved_articles=saved_articles
     )
 
 
@@ -98,7 +104,7 @@ if __name__ == "__main__":
         hours=24,
         next_run_time=datetime.now()
     )
-    scheduler.start()
+    # scheduler.start()
 
     # app.run(
     #     host="0.0.0.0",
