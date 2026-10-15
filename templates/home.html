@@ -139,13 +139,21 @@ Home
       </p>
     </header>
 
-    <!-- action left empty on purpose; will point to /search once backend is ready -->
     <form class="search-box" role="search" action="{{ url_for('home') }}#news" method="get">
-      ...
-      <input type="text" name="q" class="search-input" value="{{ q or '' }}" placeholder="Search AI news..."
-        aria-label="Search AI news">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M12.5 12.5L16 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <input
+        type="text"
+        name="q"
+        class="search-input"
+        value="{{ q or '' }}"
+        placeholder="Search AI news..."
+        aria-label="Search AI news"
+      >
       {% if selected_category %}
-      <input type="hidden" name="category" value="{{ selected_category }}">
+        <input type="hidden" name="category" value="{{ selected_category }}">
       {% endif %}
       <button type="submit" class="search-btn">Search</button>
     </form>
@@ -153,18 +161,19 @@ Home
     <nav class="category-nav" aria-label="News categories">
       <ul class="category-list">
         <li>
-          <a href="{{ url_for('home') }}"
-            class="category-chip {% if not selected_category %}category-chip-active{% endif %}">All</a>
+          <a href="{{ url_for('home', q=q or None, _anchor='news') }}"
+             class="category-chip {% if not selected_category %}category-chip-active{% endif %}">All</a>
         </li>
         {% for interest in interests %}
         <li>
-          <a href="{{ url_for('home', category=interest.id) }}"
-            class="category-chip {% if selected_category == interest.id %}category-chip-active{% endif %}">{{
-            interest.name }}</a>
+          <a href="{{ url_for('home', category=interest.id, q=q or None, _anchor='news') }}"
+             class="category-chip {% if selected_category == interest.id %}category-chip-active{% endif %}">{{ interest.name }}</a>
         </li>
         {% endfor %}
       </ul>
     </nav>
+
+  </div>
 </section>
 
 <!-- ============================================================

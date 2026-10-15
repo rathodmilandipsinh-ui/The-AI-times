@@ -30,21 +30,22 @@ def home():
     category = request.args.get("category", type=int)
     q = request.args.get("q", "").strip()
 
-    query = Article.query
+    # ---- logged-in user (safe when nobody is logged in) ----
+    user_id = session.get("user_id")
+    current_user = User.query.filter_by(id=user_id).first() if user_id else None
+    saved_articles = (current_user.saved_articles or []) if current_user else []
 
-    # Search: filter in SQL by title/description
+    # ---- search ----
+    query = Article.query
     if q:
         like = f"%{q}%"
         query = query.filter(
-            or_(
-                Article.title.ilike(like),
-                Article.description.ilike(like)
-            )
+            or_(Article.title.ilike(like), Article.description.ilike(like))
         )
 
     articles = query.order_by(Article.published_at.desc()).all()
 
-    # Category: interest_ids is a JSON list, so filter in Python
+    # ---- category ----
     if category:
         articles = [
             a for a in articles
@@ -53,17 +54,13 @@ def home():
 
     articles = articles[:60]
 
-    user = session.get("user_id")
-    current_user = User.query.filter_by(id=user).first()
-    saved_articles = current_user.saved_articles or []
-
     return render_template(
         "home.html",
         articles=articles,
         interests=get_interests(),
         selected_category=category,
         q=q,
-        saved_articles=saved_articles
+        saved_articles=saved_articles,   # keep whatever names your template already uses
     )
 
 
@@ -104,7 +101,7 @@ if __name__ == "__main__":
         hours=24,
         next_run_time=datetime.now()
     )
-    # scheduler.start()
+    scheduler.start()
 
     # app.run(
     #     host="0.0.0.0",
