@@ -30,21 +30,22 @@ def home():
     category = request.args.get("category", type=int)
     q = request.args.get("q", "").strip()
 
-    query = Article.query
+    # ---- logged-in user (safe when nobody is logged in) ----
+    user_id = session.get("user_id")
+    current_user = User.query.filter_by(id=user_id).first() if user_id else None
+    saved_articles = (current_user.saved_articles or []) if current_user else []
 
-    # Search: filter in SQL by title/description
+    # ---- search ----
+    query = Article.query
     if q:
         like = f"%{q}%"
         query = query.filter(
-            or_(
-                Article.title.ilike(like),
-                Article.description.ilike(like)
-            )
+            or_(Article.title.ilike(like), Article.description.ilike(like))
         )
 
     articles = query.order_by(Article.published_at.desc()).all()
 
-    # Category: interest_ids is a JSON list, so filter in Python
+    # ---- category ----
     if category:
         articles = [
             a for a in articles
@@ -65,7 +66,7 @@ def home():
         interests=get_interests(),
         selected_category=category,
         q=q,
-        saved_articles=saved_articles
+        saved_articles=saved_articles,   # keep whatever names your template already uses
     )
 
 
